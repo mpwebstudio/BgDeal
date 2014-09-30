@@ -1,0 +1,196 @@
+﻿@model BgDeal.Models.Deal
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+
+
+<br />
+
+<!-- Images - кеде да изпрати формата данните-->
+@using (Html.BeginForm("EditDeal", "CreateDeal", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        
+        @Html.ValidationSummary(true)
+
+
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model=>model.DateAdded)
+        @Html.HiddenFor(model=>model.PotrebitelskiNomer)
+        @Html.HiddenFor(model=>model.AuthorId)
+        @Html.HiddenFor(model=>model.Author)
+        <div class="form-group">
+            @Html.LabelFor(model => model.Topic, "Категория", new { @class = "control-label col-md-2" })
+            <div class="col-md-3">
+                @Html.DropDownListFor(model => model.Topic, (IEnumerable<SelectListItem>)ViewBag.Topics, "--- Изберете една категория ---", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Topic)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Title, "Заглавие", new { @class = "control-label col-md-2" })
+            <div class="col-md-3">
+
+                @Html.TextBoxFor(model => model.Title, new { @class = "form-control", maxlength = 50 })
+                @Html.ValidationMessageFor(model => model.Title)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Phone, "Телефон за връзка", new { @class = "control-label col-md-2" })
+            <div class="col-md-3">
+
+                @Html.TextBoxFor(model => model.Phone, new { @class = "form-control", maxlength = 20 })
+                @Html.ValidationMessageFor(model => model.Phone)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Location, "Местоположение", new { @class = "control-label col-md-2" })
+            <div class="col-md-3">
+                @Html.TextBoxFor(model => model.Location, new { @class = "form-control", maxlength = 30 })
+                @Html.ValidationMessageFor(model => model.Location)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Price, "Цена", new { @class = "control-label col-md-2" })
+            <div class="col-md-3">
+                @Html.TextBoxFor(model => model.Price, new { @class = "form-control", maxlenght = 10 })
+                @Html.ValidationMessageFor(model => model.Price)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Active, "Активна", new { @class = "control-label col-md-2" })
+            <div class="col-md-3">
+                <select name="Active">
+                    <option value="True">Да</option>
+                    <option value="False">Не</option>
+                </select>
+                @Html.ValidationMessageFor(model => model.Active)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Content, "Описание", new { @class = "control-label col-md-2" })
+
+            <div class="col-md-6">
+                @Html.TextAreaFor(model => model.Content, new { maxlenght = 2500 })
+            </div>
+            @Html.ValidationMessageFor(model => model.Content)
+
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.Content, "Заглавна снимка", new { @class = "control-label col-md-2" })
+
+            <div class="col-md-6">
+                <img src="/Content/productImages/@Model.Id/thumb_@Model.HeadImage" />
+                @Html.HiddenFor(model=>model.HeadImage)
+                <a href="/CreateDeal/EditHeadImage/@Model.Id">Промени</a>
+                
+            </div>
+            
+
+        </div>
+        
+
+        
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Content, "Допълнителни снимки", new { @class = "control-label col-md-2" })
+            
+            @foreach (var im in ViewBag.Images)
+            {
+                <div class="col-lg-2">
+                    <img src="/Content/productImages/@Model.Id/thumb_@im.ImageUrl" /> <br />
+                    <a href="/CreateDeal/EditExtraImage/@im.Id">Редактирай</a>
+                </div>
+            }
+
+        </div>
+        <script>
+            function tinyToText() {
+
+                ed = tinyMCE.getInstanceById('Comment');
+
+                if (ed) {
+                    $("#Comment").val(ed.getContent());
+
+                }
+            }
+        </script>
+
+
+
+
+
+
+
+
+
+        <br />
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Обнови" name="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+
+
+
+
+
+
+<script type="text/javascript" src="/Scripts/tinyMCE/tinymce.min.js"></script>
+<script type="text/javascript">
+    tinymce.init({
+        selector: "textarea",
+        menubar: false,
+        statusbar: false,
+        plugins: [
+            "advlist autolink lists link image charmap print preview hr anchor pagebreak",
+            "searchreplace wordcount visualblocks visualchars code fullscreen",
+            "insertdatetime media nonbreaking save table contextmenu directionality",
+            "emoticons template paste textcolor colorpicker textpattern"
+        ],
+        toolbar1: "insertfile undo redo | bold italic | bullist numlist outdent indent | link image emoticons",
+
+        image_advtab: true,
+        templates: [
+            { title: 'Test template 1', content: 'Test 1' },
+
+        ]
+    });
+</script>
+
+
+
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<!-- Тука казваме какво да се случи ако имаме OnFailure w AJAX заявката-->
+<script>
+    //Показва грешка ако нещо е станало с коментара
+    function commentPostFailure() {
+        alert("Моля въведете малко повечко символи :)");
+    }
+    // Изчиства формата след даден коментар
+    function clearForm() {
+        var my_editor_id = 'Comment';
+
+        // set the content empty
+        tinymce.get(my_editor_id).setContent('');
+    }
+
+    // Prevent bootstrap dialog from blocking focusin
+
+    // Скрива бутона за гласуване след като сме гласували
+    function hideVoteButton() {
+        $("#vote-button").hide();
+    };
+</script>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

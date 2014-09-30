@@ -1,0 +1,54 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BgDeal.Data", "BgDeal.Data\BgDeal.Data.csproj", "{44C0186E-C7C6-4DD6-BC03-EF729321FB04}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BgDeal.Models", "BgDeal.Models\BgDeal.Models.csproj", "{0FE05641-8E5A-463E-8546-B467EFEEDC33}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BgDeal.Web", "BgDeal.Web\BgDeal.Web.csproj", "{3D0D4F9C-D4DC-493E-A42C-5985B2B78807}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Eternal Libraries", "Eternal Libraries", "{AA0EE200-4465-4898-B586-C4EEFEEBFF25}"
+	ProjectSection(SolutionItems) = preProject
+		..\bgdeal\External Libraries\Kendo.Mvc.dll = ..\bgdeal\External Libraries\Kendo.Mvc.dll
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 4
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://mpwebstudio.visualstudio.com/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = BgDeal.Data\\BgDeal.Data.csproj
+		SccProjectName1 = BgDeal.Data
+		SccLocalPath1 = BgDeal.Data
+		SccProjectUniqueName2 = BgDeal.Models\\BgDeal.Models.csproj
+		SccProjectName2 = BgDeal.Models
+		SccLocalPath2 = BgDeal.Models
+		SccProjectUniqueName3 = BgDeal.Web\\BgDeal.Web.csproj
+		SccProjectName3 = BgDeal.Web
+		SccLocalPath3 = BgDeal.Web
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{44C0186E-C7C6-4DD6-BC03-EF729321FB04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44C0186E-C7C6-4DD6-BC03-EF729321FB04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44C0186E-C7C6-4DD6-BC03-EF729321FB04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44C0186E-C7C6-4DD6-BC03-EF729321FB04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FE05641-8E5A-463E-8546-B467EFEEDC33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FE05641-8E5A-463E-8546-B467EFEEDC33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FE05641-8E5A-463E-8546-B467EFEEDC33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FE05641-8E5A-463E-8546-B467EFEEDC33}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D0D4F9C-D4DC-493E-A42C-5985B2B78807}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D0D4F9C-D4DC-493E-A42C-5985B2B78807}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D0D4F9C-D4DC-493E-A42C-5985B2B78807}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D0D4F9C-D4DC-493E-A42C-5985B2B78807}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

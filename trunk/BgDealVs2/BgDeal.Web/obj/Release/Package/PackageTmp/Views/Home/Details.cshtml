@@ -1,0 +1,366 @@
+﻿@model BgDeal.Web.Models.DetailsViewModel
+
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+
+
+
+<!-- PopUp-->
+<style>
+   
+
+    label, input {
+        display: block;
+    }
+
+        input.text {
+            margin-bottom: 12px;
+            width: 95%;
+            padding: .4em;
+        }
+
+    fieldset {
+        padding: 0;
+        border: 0;
+        margin-top: 25px;
+    }
+
+   
+
+    div#users-contain {
+        width: 550px;
+        margin: 20px 0;
+    }
+
+        div#users-contain table {
+            margin: 1em 0;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+            div#users-contain table td, div#users-contain table th {
+                border: 1px solid #eee;
+                padding: .6em 10px;
+                text-align: left;
+            }
+
+    .ui-dialog .ui-state-error {
+        padding: .3em;
+        width: 550px;
+    }
+
+    ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable ui-resizable {
+        width: 550px;
+    }
+
+    .validateTips {
+        border: 1px solid transparent;
+        padding: 0.3em;
+    }
+</style>
+
+<!--End PopUp Style-->
+
+
+
+
+
+<div class="row">
+    <h2>
+    <span style="margin-left:10px;">@Model.Title</span>
+    </h2>
+</div>
+
+
+<!-- Proba snimki-->
+
+<noscript>
+    <style>
+        .es-carousel ul {
+            display: block;
+        }
+    </style>
+</noscript>
+<script id="img-wrapper-tmpl" type="text/x-jquery-tmpl">
+    <div class="row">
+        <div class="col-lg-7">
+            <div class="rg-image-wrapper">
+
+                {{if itemsCount > 1}}
+                <div class="rg-image-nav">
+                    <a href="#" class="rg-image-nav-prev">Previous Image</a>
+                    <a href="#" class="rg-image-nav-next">Next Image</a>
+                </div>
+                {{/if}}
+                <div class="rg-image"></div>
+                <div class="rg-loading"></div>
+                <div class="rg-caption-wrapper">
+                    <div class="rg-caption" style="display:none;">
+                        <p></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</script>
+
+<div class="infoDeal" >
+    <strong>Цена: £@Model.Price</strong><br />
+    <strong>Район: @Model.Location</strong><br />
+    <strong>Дата на добавяне: @Html.Label(Model.DateAdded.ToString("dd/MM/yyyy HH:MM"))</strong><br />
+    <strong>Добавена от: <a href="/Profile/UserDetails/@Model.Author">@Model.Author</a></strong><br />
+    <br />
+    @if (User.Identity.IsAuthenticated)
+{
+        <div align="center">
+    <button id="message" style="background-color: #428bca; border: 1px solid #e7e7e7; padding:5px; border-radius: 5px; color: #fff; font-family: 'a_AvanteCpsLCBrk'; font-size: 16px;align-self:center; ">Лично съобщение</button>
+            </div>
+
+  }
+
+            </div>
+
+<!--PopUp HTML-->
+
+<div id="dialog-form" title="Изпратете лично съобщение" >
+    
+    
+    <p class="validateTips">Всички полета са задължителни</p>
+    
+    
+    
+ 
+    <form id="Message" action="~/Home/Message" method="post" name="Message">
+    @Html.AntiForgeryToken()
+            <fieldset>
+
+            
+            <label for="email">Отностно</label>
+            @Html.TextBoxFor(model => model.MessageTitle)
+            <label for="text">Съобщение:</label>
+            @Html.TextAreaFor(model => model.MessageContent)
+            @Html.Hidden("CurrentPage", Model.Id)
+            @Html.Hidden("Author", Model.Author)
+            @Html.Hidden("AuthorId", Model.AuthorId)
+            @Html.Hidden("Title", Model.Title)
+            <!-- Allow form submission with keyboard without duplicating the dialog button -->
+            <input type="submit" name="Message" tabindex="-1" style="position:absolute; top:-1000px">
+
+        </fieldset>
+    </form>
+
+</div>
+
+
+
+
+
+
+
+<!--End PopUp message HTML-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="rg-gallery" class="rg-gallery">
+
+
+
+    <div class="rg-thumbs">
+        <br />
+        <br />
+        <div class="row">
+            <div class="col-md-7">
+                <!-- Elastislide Carousel Thumbnail Viewer -->
+
+                <div class="es-carousel-wrapper">
+                    <div class="es-nav">
+                        <span class="es-nav-prev">Previous</span>
+                        <span class="es-nav-next">Next</span>
+                    </div>
+
+                    <div class="es-carousel">
+                        <ul>
+                            <li><a href="#"><img src="/Content/productImages/@Model.Id/thumb_@Model.HeadImage" data-large="/Content/productImages/@Model.Id/@Model.HeadImage" /></a></li>
+                            @foreach (var ima in Model.Images)
+                            {
+                                <li><a href="#"><img src="/Content/productImages/@Model.Id/thumb_@Html.Partial("_ImagePartial", ima)" data-large="/Content/productImages/@Model.Id/@Html.Partial("_ImagePartial", ima)"></a></li>
+                            }
+
+                        </ul>
+                    </div>
+                </div>
+                <!-- End Elastislide Carousel Thumbnail Viewer -->
+            </div><!-- rg-thumbs -->
+        </div>
+    </div>
+</div>
+
+<div class="clearfix"></div>
+
+
+    
+<div class="ContentDetails">
+
+    <div class="textContent">
+           @Html.Raw(Model.Content)
+     </div>
+
+</div>
+    
+
+<div class="clearfix"></div>
+<br />
+<br />
+
+<div class="Comments" id="Comments" style="margin-bottom:40px;">
+
+    <div class="row">
+        <div class="AllComments">
+            Всички коментари (@Model.Comments.Count())
+        </div>
+    </div>
+    <br />
+
+    @foreach (var comment in Model.Comments)
+    { @Html.Partial("_CommentPartial", comment)  }
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<br />
+<br />
+<br />
+<br />
+
+<div class="row">
+
+    <div class="Comments" style="margin-left:15px;">
+        <h4>Напиши коментар:</h4>
+        @if (User.Identity.IsAuthenticated)
+        {
+            using (Ajax.BeginForm("PostComment", new AjaxOptions { HttpMethod = "Post", InsertionMode = InsertionMode.InsertAfter, UpdateTargetId = "Comments", OnFailure = "commentPostFailure", OnSuccess = "clearForm" }))
+            {
+
+                <script type="text/javascript" src="/Scripts/tinyMCE/tinymce.min.js"></script>
+                <script type="text/javascript">
+                    tinymce.init({
+                        selector: "textarea",
+                        menubar: false,
+                        statusbar: false,
+                        plugins: [
+                            "advlist autolink lists link image charmap print preview hr anchor pagebreak",
+                            "searchreplace wordcount visualblocks visualchars code fullscreen",
+                            "insertdatetime media nonbreaking save table contextmenu directionality",
+                            "emoticons template paste textcolor colorpicker textpattern"
+                        ],
+                        toolbar1: "insertfile undo redo | bold italic | bullist numlist outdent indent | link image emoticons",
+                        
+                        image_advtab: true,
+                        templates: [
+                            { title: 'Test template 1', content: 'Test 1' },
+                        
+                        ]
+                    });
+                </script>
+
+
+
+
+                @Html.Hidden("DealId", Model.Id)
+                @Html.TextArea("Comment", new { maxlenght = 2500 })
+                //задаваме уникална стойност за всеки потребител и след това я проверяваме в LaptopsController.cs
+
+
+                //<textarea name="comment" style="width:100%"></textarea>
+
+                @Html.AntiForgeryToken()
+                <br />
+                <br />
+                <script>
+                    function tinyToText() {
+
+                        ed = tinyMCE.getInstanceById('Comment');
+
+                        if (ed) {
+                            $("#Comment").val(ed.getContent());
+
+                        }
+                    }
+                </script>
+
+                <input type="submit" value="Публикувай" onclick="tyniToText();" style="background-color: #428bca; border: 1px solid #e7e7e7; border-radius: 5px; color: #fff; font-family: 'a_AvanteCpsLCBrk'; font-size: 16px; " />
+            }
+        }
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+@section scripts {
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <!-- Тука казваме какво да се случи ако имаме OnFailure w AJAX заявката-->
+    <script>
+        //Показва грешка ако нещо е станало с коментара
+        function commentPostFailure() {
+            alert("Моля въведете малко повечко символи :)");
+        }
+        // Изчиства формата след даден коментар
+        function clearForm() {
+            var my_editor_id = 'Comment';
+
+            // set the content empty
+            tinymce.get(my_editor_id).setContent('');
+        }
+
+        // Prevent bootstrap dialog from blocking focusin
+
+        // Скрива бутона за гласуване след като сме гласували
+        function hideVoteButton() {
+            $("#vote-button").hide();
+        };
+    </script>
+
+
+
+
+
+    <!--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>-->
+    <script type="text/javascript" src="~/Scripts/Gallery/jquery.tmpl.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/Gallery/jquery.easing.1.3.js"></script>
+    <script type="text/javascript" src="~/Scripts/Gallery/jquery.elastislide.js"></script>
+    <script type="text/javascript" src="~/Scripts/Gallery/gallery.js"></script>
+
+    
+   
+}

@@ -1,0 +1,148 @@
+﻿@model IEnumerable<BgDeal.Web.Models.MessageViewModel>
+@{
+    ViewBag.Title = "MessagesOut";
+}
+
+
+@using (Ajax.BeginForm("DelleteMessageSent", new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "messages" }))
+{
+
+<div class="row" style="min-height:40px;">
+    <div class="col-lg-2">
+        <h2>Изходящи</h2>
+    </div>
+    <div class="col-lg-9" style="margin-left:20px; padding-top:30px;">
+        <a href="~/Profile/Messages/@User.Identity.Name" class="btn btn-default">Входящи</a>
+        <a href="~/Profile/MessagesOut/@User.Identity.Name" class="btn btn-default">Изходящи</a>
+        <input type="submit" id="delete" value="Изтрий" class="btn btn-default" style="width:70px; float:right; margin-right:70px; " />
+    </div>
+</div>
+
+
+<div class="messages col-lg-12">
+
+
+
+    <span class="col-lg-2">
+        Дата
+    </span>
+    <span class="col-lg-6">
+        Отностно
+    </span>
+    <span class="col-lg-2">
+        Съобщение до:
+    </span>
+
+    <div class="clearfix"></div>
+    @for (int i = 0; i < Model.Count(); i++)
+    {
+        var mode = Model.ElementAt(i);
+        <div class="row">
+            @if (mode.MessageRead)
+            {
+                @:<div class="read">
+                    }
+                      <input style="width:15px;" type="checkbox" id="@mode.Id" value="@mode.Id" name="Id" />
+            <a href="~/Profile/MessagesReadOut/@mode.Id">
+
+                <span class="col-lg-2">@mode.DateSend</span>
+                <span class="col-lg-6">@mode.Title</span>
+                <span class="col-lg-2">@mode.MessageTo</span>
+
+
+            </a>
+            @if (mode.MessageRead)
+            {
+                @:</div>
+            }
+        </div>
+    }
+
+
+</div>
+
+}
+
+@if(ViewBag.Pages <= 0)
+{
+    
+}
+else
+{ 
+<div class="pagination_footer" style="position:fixed;">
+    <div class="col-lg-5"></div>
+    <div align="center">
+        @if (ViewBag.Pages == 1)
+        {
+            <a class="current_pagination_btn" href="/Profile/MessagesOut/@User.Identity.Name/1">1</a>
+        }
+
+        @if (ViewBag.Pages == 2)
+        {
+            <a class="@if(Convert.ToInt32(Url.RequestContext.RouteData.Values["id2"])<=1){@:current_pagination_btn
+                                                 } else { @: pagination_btn
+                                                  } " href="/Profile/MessagesOut/@User.Identity.Name/1">1</a>
+                                                <a class="@if (Convert.ToInt32(Url.RequestContext.RouteData.Values["id2"])==2){@:current_pagination_btn
+                                                                                                         } else { @: pagination_btn
+                                                                                                                    } " href="/Profile/MessagesOut/@User.Identity.Name/2">2</a>
+        }
+
+        @if (ViewBag.Pages == 3)
+        {
+            <a class="@if(Convert.ToInt32(Url.RequestContext.RouteData.Values["id2"])<=1){@:current_pagination_btn
+                                                 } else { @: pagination_btn
+                                                            } " href="/Profile/MessagesOut/@User.Identity.Name/1">1</a>
+                                                            <a class="@if (Convert.ToInt32(Url.RequestContext.RouteData.Values["id2"])==2){@:current_pagination_btn
+                                                                                                                                 } else { @: pagination_btn
+                                                                                                                                            } " href="/Profile/MessagesOut/@User.Identity.Name/2">2</a>
+                                                                                                                                            <a class="@if (Convert.ToInt32(Url.RequestContext.RouteData.Values["id2"])==3){@:current_pagination_btn
+                                                                                                                                                                                                                                                 } else { @: pagination_btn
+                                                                                                                                                                                                                                                 } " href=" />Profile/MessagesOut/@User.Identity.Name/3">3</a>
+        }
+
+        @if (ViewBag.Pages >= 4)
+        {
+            if (Convert.ToInt32(Url.RequestContext.RouteData.Values["id2"]) <= 1)
+            {
+
+            }
+            else
+            {
+                <a class="pagination_btn" href="/Profile/MessagesOut/@User.Identity.Name/@(Convert.ToInt32(Url.RequestContext.RouteData.Values["id2"])-1)">@(Convert.ToInt32(Url.RequestContext.RouteData.Values["id2"]) - 1)</a>
+            }
+            if (Convert.ToInt32(Url.RequestContext.RouteData.Values["id2"]) <= 1)
+            { 
+            <a class="current_pagination_btn" href="/Profile/MessagesOut/@User.Identity.Name/1)">1</a>
+            }
+            else
+            {
+                <a class="current_pagination_btn" href="/Profile/MessagesOut/@User.Identity.Name/@(Convert.ToInt32(Url.RequestContext.RouteData.Values["id2"]))">@(Convert.ToInt32(Url.RequestContext.RouteData.Values["id2"]))</a>
+            }
+            if (Convert.ToInt32(Url.RequestContext.RouteData.Values["id2"]) == ViewBag.Pages)
+            {
+
+            }
+            else
+            {
+                if (Convert.ToInt32(Url.RequestContext.RouteData.Values["id2"]) <= 1)
+                { 
+                <a class="pagination_btn" href="/Profile/MessagesOut/@User.Identity.Name/2">2</a>
+                }
+                else
+                {
+                    <a class="pagination_btn" href="/Profile/MessagesOut/@User.Identity.Name/@(Convert.ToInt32(Url.RequestContext.RouteData.Values["id2"])+1)">@(Convert.ToInt32(Url.RequestContext.RouteData.Values["id2"]) + 1)</a>
+                }
+            }
+
+        }
+
+
+    </div>
+</div>
+
+}
+
+
+
+
+

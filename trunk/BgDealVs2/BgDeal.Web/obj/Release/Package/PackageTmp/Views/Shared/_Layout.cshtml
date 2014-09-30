@@ -1,0 +1,357 @@
+﻿@using Microsoft.AspNet.Identity
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @Scripts.Render("~/bundles/jquery")
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <script src="Scripts/jquery-2.0.3.js" type="text/javascript"></script>
+    <script src="Scripts/jquery.MultiFile.js" type="text/javascript"></script>
+    <script src="/Scripts/jquery.min.js"></script>
+    <script src="/Scripts/kendo.web.min.js"></script>
+    <script src="/Scripts/kendo.aspnetmvc.min.js"></script>
+    <script src="/Scripts/kendo.timezones.min.js"></script>
+    <script src="/Scripts/console.min.js"></script>
+    <script src="/Scripts/prettify.min.js"></script>
+    <link rel="stylesheet" href="/Content/web/kendo.common.min.css">
+    <link rel="stylesheet" href="/Content/web/kendo.rtl.min.css">
+    <link rel="stylesheet" href="/Content/web/kendo.default.min.css">
+    <link rel="stylesheet" type="text/css" href="/Content/Gallery/demo.css" />
+    <link rel="stylesheet" type="text/css" href="/Content/Gallery/style.css" />
+    <link rel="stylesheet" type="text/css" href="/Content/Gallery/elastislide.css" />
+    @Styles.Render("~/Content/css", "~/Content/kendo")
+    @Scripts.Render("~/bundles/modernizr")
+
+    
+    <script type="text/javascript">
+        //Проверява за нови съобщения    
+        
+
+        $(function () {
+                $.ajax({
+                type: "POST",
+                url: '/Home/MessageCheck',
+                data: { order: "Client_Call" },
+                dataType: "json",
+                success: function () { $("#mess").removeClass("hidden"); },
+                
+            })});
+            
+    </script>
+
+
+
+</head>
+<body>
+    <!-- част от търсенето-->
+    <script>
+        function onAdditionalData() {
+            return {
+                text: $('#DealSearch').val()
+            };
+        }
+    </script>
+
+    <!--край търсене-->
+    <!-- скриване на най-горната част-->
+    <script>
+
+        $(window).scroll(function (event) {
+            var scrollTop = $(this).scrollTop();
+            var fixed = scrollTop > $('div#contact-info').height();
+            if (fixed && !$('#secondary-top-bar').hasClass("fixed")) {
+                $('#primary-navigator-container, #secondary-top-bar, #content-footer-wrapper, #content-wrapper').addClass("fixed");
+            } else if (!fixed) {
+                $('#primary-navigator-container, #secondary-top-bar, #content-footer-wrapper, #content-wrapper').removeClass("fixed");
+            }
+        });
+    </script>
+
+    <div class="primary-top-bar">
+        <div id="contact-info row">
+            <div class="container">
+
+                <div class="col-lg-2" style="margin-left:-20px;">
+                    <ul id="social-media">
+                        <li>
+                            <a id="facebook" href="#">
+                                <object class="facebook-object" data="data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIGJhc2VQcm9maWxlPSJmdWxsIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4bWxuczpldj0iaHR0cDovL3d3dy53My5vcmcvMjAwMS94bWwtZXZlbnRzIj4gPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCwwKSBzY2FsZSgwLjMyKSI+PHBhdGggZD0iTSA5NSwyMC4wMDEgQyA5NSwxMi4xMTkgODcuODg0LDUgODAsNSBIIDIwIEMgMTIuMTE2LDUgNSwxMi4xMTkgNSwyMC4wMDEgViA3OS45OTkgQyA1LDg3Ljg4MSAxMi4xMTYsOTUgMjAuMDAxLDk1IEggNTAgViA2MSBIIDM5IFYgNDYgSCA1MCBWIDQwLjE1NiBDIDUwLDMwLjA3NyA1Ny41NjksMjEgNjYuODc1LDIxIEggNzkgViAzNiBIIDY2Ljg3NSBDIDY1LjU0OCwzNiA2NCwzNy42MTEgNjQsNDAuMDI0IFYgNDYgSCA3OSBWIDYxIEggNjQgdiAzNCBoIDE2IGMgNy44ODQsMCAxNSwtNy4xMTkgMTUsLTE1LjAwMSBWIDIwLjAwMSB6IiBmaWxsPSIjYTlhOWE5IiAvPjwvZz48L3N2Zz4K">
+                                    <svg version="1.1" baseProfile="full" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events"> <g transform="translate(0,0) scale(0.32)"><path d="M 95,20.001 C 95,12.119 87.884,5 80,5 H 20 C 12.116,5 5,12.119 5,20.001 V 79.999 C 5,87.881 12.116,95 20.001,95 H 50 V 61 H 39 V 46 H 50 V 40.156 C 50,30.077 57.569,21 66.875,21 H 79 V 36 H 66.875 C 65.548,36 64,37.611 64,40.024 V 46 H 79 V 61 H 64 v 34 h 16 c 7.884,0 15,-7.119 15,-15.001 V 20.001 z" fill="#a9a9a9" /></g></svg>
+                                </object>
+                            </a>
+                        </li>
+                        <li>
+                            <a id="gplus" href="#">
+                                <object class="google-plus" data="data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIGJhc2VQcm9maWxlPSJmdWxsIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4bWxuczpldj0iaHR0cDovL3d3dy53My5vcmcvMjAwMS94bWwtZXZlbnRzIj48ZyB0cmFuc2Zvcm09InNjYWxlKDAuMzIpIj48cGF0aCBmaWxsPSIjYTlhOWE5IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTkyLDNIOEM1LjIzOSwzLDMsNS4yMzksMyw4djg0YzAsMi43NjEsMi4yMzksNSw1LDVoODRjMi43NjEsMCw1LTIuMjM5LDUtNVY4IEM5Nyw1LjIzOSw5NC43NjEsMyw5MiwzeiBNMzQuMDg4LDg4LjU1M2MtMTQuNTUzLDAtMjEuNTcxLTYuOTM1LTIxLjU3MS0xNC4zODFjMC0zLjYxOCwxLjgwMy04Ljc0Myw3LjcyNC0xMi4yNjQgYzYuMjE5LTMuODIyLDE0LjY1Mi00LjMyMiwxOS4xNy00LjYzM0MzOCw1NS40NjUsMzYuNCw1My41NTYsMzYuNCw1MC40NDFjMC0xLjcwNywwLjUwMi0yLjcxMywwLjk5OS0zLjkyMiBjLTEuMTA1LDAuMTAzLTIuMjA0LDAuMjAyLTMuMjA4LDAuMjAyYy0xMC42MzQsMC0xNi42NTQtNy45NS0xNi42NTQtMTUuNzkyYzAtNC42MiwyLjEwNC05Ljc1Miw2LjQxOC0xMy40NzMgYzUuNzI0LTQuNzI2LDEzLjU0MS02LjAwOCwxOC45NjYtNi4wMDhoMTkuNzcxbC02LjUyNiw0LjA5OWgtNi4yMTdjMi4zMDcsMS45MDksNy4xMTcsNS45MzEsNy4xMTcsMTMuNTc4IGMwLDcuNDM2LTQuMjA5LDEwLjk2NC04LjQyMSwxNC4yOGMtMS4zMDYsMS4zMDQtMi44MTMsMi43MTItMi44MTMsNC45MjljMCwyLjIwNywxLjUwOCwzLjQxMywyLjYwOCw0LjMyNWwzLjYxNiwyLjgwOSBjNC40MTUsMy43Miw4LjQyOCw3LjEzOCw4LjQyOCwxNC4wODNDNjAuNDgzLDc5LjAwNSw1MS4zNDYsODguNTUzLDM0LjA4OCw4OC41NTN6IE04Ny40ODMsNDguNzdINzcuMzk1djEwLjExN0g3Mi40M1Y0OC43N0g2Mi4zOTEgVjQzLjc1SDcyLjQzVjMzLjY5NWg0Ljk2NVY0My43NWgxMC4wODhWNDguNzd6Ii8+PHBhdGggZmlsbD0iI2E5YTlhOSIgZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik00OC4yNCwzMy43NDljMC03LjI0My00LjMxNy0xOC41MDMtMTIuNjQtMTguNTAzYy0yLjYxNiwwLTUuNDIsMS4zMDctNy4wMjksMy4zMiBjLTEuNzA3LDIuMTE0LTIuMjA0LDQuODIxLTIuMjA0LDcuNDQzYzAsNi43MzQsMy45MTEsMTcuODk0LDEyLjU0NCwxNy44OTRjMi41MDcsMCw1LjIwNy0xLjIsNi44MjEtMi44MTEgQzQ4LjA0LDM4Ljc3MSw0OC4yNCwzNS41Niw0OC4yNCwzMy43NDl6Ii8+PHBhdGggZmlsbD0iI2E5YTlhOSIgZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik00Mi44Miw2MC4xOTVjLTAuOC0wLjEwMS0xLjMwMi0wLjEwMS0yLjMwNS0wLjEwMSBjLTAuOTA0LDAtNi4zMjQsMC4xOTctMTAuNTM3LDEuNjE1Yy0yLjIwOCwwLjc5OS04LjYyNywzLjIxNC04LjYyNywxMC4zNTNjMCw3LjE0MSw2LjkyMiwxMi4yNzcsMTcuNjU4LDEyLjI3NyBjOS42MzUsMCwxNC43NTUtNC42MzcsMTQuNzU1LTEwLjg2M0M1My43NjQsNjguMzM0LDUwLjQ1MSw2NS42MjcsNDIuODIsNjAuMTk1eiIvPjwvZz48L3N2Zz4NCg==">
+                                    <svg version="1.1" baseProfile="full" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events"><g transform="scale(0.32)"><path fill="#a9a9a9" fill-rule="evenodd" clip-rule="evenodd" d="M92,3H8C5.239,3,3,5.239,3,8v84c0,2.761,2.239,5,5,5h84c2.761,0,5-2.239,5-5V8 C97,5.239,94.761,3,92,3z M34.088,88.553c-14.553,0-21.571-6.935-21.571-14.381c0-3.618,1.803-8.743,7.724-12.264 c6.219-3.822,14.652-4.322,19.17-4.633C38,55.465,36.4,53.556,36.4,50.441c0-1.707,0.502-2.713,0.999-3.922 c-1.105,0.103-2.204,0.202-3.208,0.202c-10.634,0-16.654-7.95-16.654-15.792c0-4.62,2.104-9.752,6.418-13.473 c5.724-4.726,13.541-6.008,18.966-6.008h19.771l-6.526,4.099h-6.217c2.307,1.909,7.117,5.931,7.117,13.578 c0,7.436-4.209,10.964-8.421,14.28c-1.306,1.304-2.813,2.712-2.813,4.929c0,2.207,1.508,3.413,2.608,4.325l3.616,2.809 c4.415,3.72,8.428,7.138,8.428,14.083C60.483,79.005,51.346,88.553,34.088,88.553z M87.483,48.77H77.395v10.117H72.43V48.77H62.391 V43.75H72.43V33.695h4.965V43.75h10.088V48.77z" /><path fill="#a9a9a9" fill-rule="evenodd" clip-rule="evenodd" d="M48.24,33.749c0-7.243-4.317-18.503-12.64-18.503c-2.616,0-5.42,1.307-7.029,3.32 c-1.707,2.114-2.204,4.821-2.204,7.443c0,6.734,3.911,17.894,12.544,17.894c2.507,0,5.207-1.2,6.821-2.811 C48.04,38.771,48.24,35.56,48.24,33.749z" /><path fill="#a9a9a9" fill-rule="evenodd" clip-rule="evenodd" d="M42.82,60.195c-0.8-0.101-1.302-0.101-2.305-0.101 c-0.904,0-6.324,0.197-10.537,1.615c-2.208,0.799-8.627,3.214-8.627,10.353c0,7.141,6.922,12.277,17.658,12.277 c9.635,0,14.755-4.637,14.755-10.863C53.764,68.334,50.451,65.627,42.82,60.195z" /></g></svg>
+                                </object>
+                            </a>
+                        </li>
+                        <li>
+                            <a id="instagram" href="#">
+                                <object class="instagram-object" data="data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIGJhc2VQcm9maWxlPSJmdWxsIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4bWxuczpldj0iaHR0cDovL3d3dy53My5vcmcvMjAwMS94bWwtZXZlbnRzIj48ZyB0cmFuc2Zvcm09InNjYWxlKDAuMzIpIj48cGF0aCBmaWxsPSIjYTlhOWE5IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTY3Ljc0OCwzNS4xNTVoOC43ODFjMS45MjMsMCwzLjQ5Ni0xLjU3NCwzLjQ5Ni0zLjQ5OHYtOC4zNzEgYzAtMS45MjUtMS41NzMtMy40OTgtMy40OTYtMy40OThoLTguNzgxYy0xLjkyNCwwLTMuNDk3LDEuNTczLTMuNDk3LDMuNDk4djguMzcxQzY0LjI1MSwzMy41ODEsNjUuODI0LDM1LjE1NSw2Ny43NDgsMzUuMTU1eiIvPjxlbGxpcHNlIGZpbGw9IiNhOWE5YTkiIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBjeD0iNTAuMDc0IiBjeT0iNDkuODMxIiByeD0iMTUuNjAyIiByeT0iMTUuMTE3Ii8+PHBhdGggZmlsbD0iI2E5YTlhOSIgZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik05MiwzSDhDNS4yMzksMywzLDUuMjM5LDMsOHY4NGMwLDIuNzYxLDIuMjM5LDUsNSw1aDg0YzIuNzYxLDAsNS0yLjIzOSw1LTVWOCBDOTcsNS4yMzksOTQuNzYxLDMsOTIsM3ogTTg4Ljg0Myw3OC44NzJjMCw1LjkxMS00LjQ4Nyw5Ljk3MS05Ljk3MSw5Ljk3MUgyMS4xMjhjLTUuNDg0LDAtOS45NzEtNC4wNi05Ljk3MS05Ljk3MVYyMS4xMjggYzAtNS45MTEsNC40ODYtOS45NzEsOS45NzEtOS45NzFoNTcuNzQ0YzUuNDgzLDAsOS45NzEsNC4wNiw5Ljk3MSw5Ljk3MVY3OC44NzJ6Ii8+PHBhdGggZmlsbD0iI2E5YTlhOSIgZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik03NC4yMjEsNTAuNjc2YzAsMTIuOTIxLTEwLjgxMiwyMy4zOTYtMjQuMTQ2LDIzLjM5NiBjLTEzLjMzNiwwLTI0LjE0Ny0xMC40NzQtMjQuMTQ3LTIzLjM5NmMwLTIuMzE2LDAuMzUtNC41NTMsMC45OTctNi42NjZoLTcuMTM2djMyLjgxNWMwLDEuNjk5LDEuMzkxLDMuMDg4LDMuMDg5LDMuMDg4aDU0LjA5OCBjMS42OTgsMCwzLjA4OC0xLjM5LDMuMDg4LTMuMDg4VjQ0LjAxaC02LjgzOEM3My44NzEsNDYuMTIzLDc0LjIyMSw0OC4zNTksNzQuMjIxLDUwLjY3NnoiLz48L2c+PC9zdmc+DQo="></object>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" id="twitter">
+                                <object data="data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIGJhc2VQcm9maWxlPSJmdWxsIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4bWxuczpldj0iaHR0cDovL3d3dy53My5vcmcvMjAwMS94bWwtZXZlbnRzIj48ZyB0cmFuc2Zvcm09InNjYWxlKDAuMzIpIj48cGF0aCBmaWxsPSIjYTlhOWE5IiBkPSJNOTIsM0g4QzUuMjM5LDMsMyw1LjIzOSwzLDh2ODRjMCwyLjc2MSwyLjIzOSw1LDUsNWg4NGMyLjc2MSwwLDUtMi4yMzksNS01VjhDOTcsNS4yMzksOTQuNzYxLDMsOTIsM3ogTTg4Ljg3NCwyNi4zMDIgYy0yLjEyMiwzLjE3Ny00Ljc1Miw1LjkyMi03LjgxOCw4LjE2NGMwLjAyNSwwLjYxNiwwLjAzNywxLjIzMywwLjAzNywxLjg1NWMwLDIyLjMxNS0xNi45OCw0NS4zOTYtNDUuMzk2LDQ1LjM5NiBjLTguNjg3LDAtMTcuMTQ0LTIuNDc5LTI0LjQ1OC03LjE2OWMtMC4xNTItMC4wOTctMC4yMTctMC4yODYtMC4xNTUtMC40NTZjMC4wNjEtMC4xNjksMC4yMzQtMC4yNzQsMC40MDktMC4yNTQgYzEuMjI5LDAuMTQ2LDIuNDgyLDAuMjE5LDMuNzI5LDAuMjE5YzYuNzU4LDAsMTMuMTU2LTIuMDg5LDE4LjU2Ny02LjA1M2MtNi40ODctMC41NDctMTIuMDYyLTQuOTM4LTE0LjA2OC0xMS4yIGMtMC4wNDEtMC4xMy0wLjAxMS0wLjI3MSwwLjA4LTAuMzc0YzAuMDktMC4xMDMsMC4yMjktMC4xNDcsMC4zNjItMC4xMjRjMS43OTcsMC4zNDMsMy42MjQsMC4zNjMsNS4zODcsMC4wNzkgYy02LjY5LTIuMDgxLTExLjM5My04LjM0Ni0xMS4zOTMtMTUuNDgxbDAuMDAyLTAuMjA4YzAuMDAzLTAuMTM2LDAuMDc3LTAuMjYsMC4xOTMtMC4zMjZjMC4xMTgtMC4wNjgsMC4yNjQtMC4wNjksMC4zODEtMC4wMDMgYzEuNzQzLDAuOTY4LDMuNjc3LDEuNTkxLDUuNjU1LDEuODI4Yy0zLjg0NC0zLjA2NC02LjEwMi03LjcwOS02LjEwMi0xMi42NzhjMC0yLjg2NywwLjc2LTUuNjg2LDIuMTk0LTguMTQ4IGMwLjA2NC0wLjEwOSwwLjE3OC0wLjE4MiwwLjMwNS0wLjE5YzAuMTI3LTAuMDEzLDAuMjUsMC4wNDIsMC4zMjksMC4xNDJjNy44Nyw5LjY1MSwxOS40NDQsMTUuNTk1LDMxLjgyMSwxNi4zNTggYy0wLjIwOC0xLjA0LTAuMzEyLTIuMTEtMC4zMTItMy4xOTFjMC04LjkzNiw3LjI3MS0xNi4yMDUsMTYuMjA2LTE2LjIwNWM0LjM5NSwwLDguNjM5LDEuODA2LDExLjY4MSw0Ljk2IGMzLjQzMS0wLjY5OSw2LjY5Ny0xLjk2LDkuNzE0LTMuNzVjMC4xMzktMC4wODIsMC4zMTMtMC4wNjksMC40MzksMC4wM2MwLjEyNSwwLjEwMSwwLjE3NiwwLjI2OCwwLjEyNiwwLjQyMSBjLTEuMDIxLDMuMTk5LTMuMDE3LDUuOTg5LTUuNjk2LDguMDA0YzIuNTIzLTAuNDM5LDQuOTc0LTEuMTgyLDcuMzAxLTIuMjE0YzAuMTU4LTAuMDcyLDAuMzQzLTAuMDI3LDAuNDUzLDAuMTA0IEM4OC45NTksMjUuOTcsODguOTcxLDI2LjE1OCw4OC44NzQsMjYuMzAyeiIvPjwvZz48L3N2Zz4NCg==" class="twitter-object"></object>
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+                <div class="col-lg-2">
+
+                    <div id="mess" class="col-lg-1 hidden" style="margin-left:-31px; padding:6px;">
+                        <!-- Ако имаме ново съобщение се появява този div-->
+                        <a href="/Profile/Messages/@User.Identity.Name">  <img src="/Content/images/message.png" /></a>
+                    </div>
+                </div>
+                <div class="col-lg-2"><a href="@Url.Action("Index","CreateDeal")"><img style="margin-left:0px;" src="/Content/images/addAdvert.png" /></a></div>
+
+                <div class="col-lg-2" style="padding:8px;margin-left:15px;">
+                    @using (Html.BeginForm("Search", "Home", FormMethod.Post))
+                    {
+                        @(Html.Kendo()
+                            .AutoComplete() // разрешаваме аутокомпиита
+                            .Name("DealSearch") // името на инпут полето което подаваме на SubmitSearchModel
+                            .DataTextField("Title") //Името на полето за което правим анонимната функция в контролера
+                            .MinLength(3)//минимум 3 букви за да сработи аутокомплиита
+                            .Placeholder("Търси..")//какво да се изписва в полето
+                            .DataSource(data =>
+                            {
+                                data.Read(read =>
+                                    {
+                                        read.Action("GetDealData", "Home") // от къде ще вземаме данните за аутокомпийта
+                                            .Data("onAdditionalData");
+                                    })
+                                    .ServerFiltering(true);
+                            })
+                        )
+                    }
+                    <!-- Край търсене-->
+                </div>
+                <div class="col-lg-4" style="float:left; margin-left:0px; padding-top:10px; z-index:3;">
+
+                    <!--@Html.Partial("_LoginPartial")-->
+                @if (User.Identity.IsAuthenticated)
+                {
+                    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm"}))
+                        {
+                        @Html.AntiForgeryToken()
+
+                          <div class="row" style="margin-left:0px;">        
+                            <a href="javascript:document.getElementById('logoutForm').submit()">Изход</a>
+                            <div class="menu-login-display-2" id="menu-login-display-2" onmouseover ="document.getElementById('userbar-login').style.display = 'block';" onmouseout="document.getElementById('userbar-login').style.display = 'none';">
+                                <span style="padding:10px;">
+                                    <span style="color: #428bca">Здравей @User.Identity.Name</span>
+                                    
+                                    
+                                </span>
+                                    <div id="userbar-login" style="top: 48px; display: none; opacity: 1;z-index:30000; padding:10px;">
+
+                                        <a href="/Profile/Messages/@User.Identity.Name">Поща</a><br />
+                                        <a href="/Profile/UserDetails/@User.Identity.Name">Профил</a><br />
+                                        <a href="/Profile/AllDeals">Обяви</a><br />
+
+                                    </div>
+                                
+                                </div>
+                            </div>
+                        
+                        }
+                }
+                else
+                {
+                    
+                <div class="row" style="margin-left:0px;">
+                    
+                        @Html.ActionLink("Регистрация", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })
+                    
+                    <div class="menu-login-display" id="menu-login-display" onmouseover="document.getElementById('userbar-login').style.display = 'block';" onmouseout="    document.getElementById('userbar-login').style.display = 'none';">
+                        
+                            <span style="padding:10px; padding-bottom:20px;">
+                                @Html.ActionLink("Вход", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
+                            </span>
+                        
+                        <div id="userbar-login" style="top: 48px; display: none; opacity: 1;z-index:30000;">
+                            
+                            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                
+                                
+                                <div class="form-group">
+                                    
+                                    <div align="center" style="margin-top:10px; padding:10px;">
+                                        <input type="text" placeholder="Потребителско име" id="UserName" name="username">
+                                
+                                    </div>
+                                    <div class="clear"></div>
+                                    <div align="center" style="margin-top:10px;">
+                                        <input type="password" placeholder="Парола" id="Password" autocapitalize="off" autocorrect="off" name="password">
+                                        
+                                    </div>
+                                    <div class="clear"></div>
+                                    <div align="center" style="margin-top:10px;">
+                                        Запомни ме <input type="checkbox" name="RememberMe" id="RememberMe" style="width:20px;" />
+
+
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div align="center" style="margin-top:10px; margin-bottom:10px;">
+                                        <input type="submit" value="Вход" class="btn btn-default" />
+                                    </div>
+                                </div>
+                             
+                            }
+
+    
+                        </div>
+                    </div>
+
+                </div>
+                }
+        </div>
+                
+        </div>
+        <div class="clearfix"></div>
+
+        <div id="primary-navigator-container" class="">
+            <div class="container">
+                <div class="navbar-header">
+                    <span style="margin-left:-25px;">
+                        <a href="/"><img src="/Content/images/logo.png" /></a>
+                    </span>
+                </div>
+                <div class="navbar-collapse collapse" style="z-index:-1;">
+                    <ul class="nav navbar-nav" style="margin-left:0px;">
+                        <li>
+                            <a href="/Home/All/Бебо">
+                                <img src="/Content/images/baby.png" style="margin-left:20px;" /><br />
+                                <span>За Бебо</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/Home/All/Мода">
+                                <img src="/Content/images/fashion.png" style="margin-left:20px;" /><br />
+                                <span>Мода</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/Home/All/Електроника">
+                                <img src="/Content/images/electro.png" style="margin-left:54px" /><br />
+                                <span>Електроника</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/Home/All/Домашни">
+                                <img src="/Content/images/home.png" style="margin-left:33px;" /><br />
+                                <span>За Дома</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/Home/All/Авто">
+                                <img src="/Content/images/auto.png" style="margin-left:15px;" /><br />
+                                <span>Авто</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/Home/All/Услуги">
+                                <img src="/Content/images/services.png" style="margin-left:25px" /><br />
+                                <span>Услуги</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/Home/All/Безплатни">
+                                <img src="/Content/images/freebies.png" style="margin-left:45px;" /><br />
+                                <span>Безплатни</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/Home/All/Други">
+                                <img src="/Content/images/other.png" style="margin-left:25px; z-index:-1;"  /><br />
+                                <span>Други</span>
+                            </a>
+                        </li>
+                    </ul>
+                   
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!--Край на хедара-->
+    <div class="container body-content">
+        @RenderBody()
+        
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/kendo")
+    @RenderSection("scripts", required: false)
+
+
+
+
+
+    <!-- PopUp Message -->
+
+    <link rel="stylesheet" href="/Content/jquery-ui.css">
+    <!--<script src="//code.jquery.com/jquery-1.10.2.js"></script>-->
+    <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+
+    <script>
+        $(function () {
+            
+            function addUser() {
+                var valid = true;
+               
+                
+                if (valid) {
+                   
+                    document.getElementById("Message").submit();
+                    
+                }
+                return valid;
+            }
+            dialog = $("#dialog-form").dialog({
+                autoOpen: false,
+                height: 450,
+                width: 550,
+                modal: true,
+                buttons: {
+                    "Изпрати": addUser,
+                    "Откажи": function () {
+                        dialog.dialog("close");
+                    }
+                },
+                close: function () {
+                    form[0].reset();
+                    allFields.removeClass("ui-state-error");
+                }
+            });
+            form = dialog.find("form").on("submit", function (event) {
+                submit();
+            });
+            $("#message").button().on("click", function () {
+                dialog.dialog("open");
+            });
+        });
+        
+    </script>
+
+
+    
+
+
+
+
+</body>
+</html>

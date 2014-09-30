@@ -1,0 +1,25 @@
+﻿@model IEnumerable<BgDeal.Web.Models.DealViewModel>
+
+@{
+    ViewBag.Title = "Search";
+}
+
+<h2>Search</h2>
+
+
+
+@for (int i = 0; i < Model.Count(); i++)
+{
+    var listDeal = Model.ElementAt(i);
+    <!-- Задаваме релативен път за да няма объркване когато се извика сайта с home/index-->
+        <a href="~/Home/Details/@listDeal.Id">
+            <div class="col-lg-4">
+                @listDeal.Title <br />
+                <img src="~/Content/productImages/@listDeal.Id/thumb_@listDeal.ImageUrl" /> <br />
+                @listDeal.Price<br />
+
+            </div>
+        </a>
+    
+}
+

@@ -1,0 +1,123 @@
+﻿@model IEnumerable<BgDeal.Web.Models.MessageViewModel>
+
+@{
+    ViewBag.Title = "MessagesReadOut";
+}
+
+<h2>MessagesReadOut</h2>
+
+<!-- PopUp-->
+<style>
+    label, input {
+        display: block;
+    }
+
+        input.text {
+            margin-bottom: 12px;
+            width: 95%;
+            padding: .4em;
+        }
+
+    fieldset {
+        padding: 0;
+        border: 0;
+        margin-top: 25px;
+    }
+
+
+
+    div#users-contain {
+        width: 450px;
+        margin: 20px 0;
+    }
+
+        div#users-contain table {
+            margin: 1em 0;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+            div#users-contain table td, div#users-contain table th {
+                border: 1px solid #eee;
+                padding: .6em 10px;
+                text-align: left;
+            }
+
+    .ui-dialog .ui-state-error {
+        padding: .3em;
+    }
+
+    .validateTips {
+        border: 1px solid transparent;
+        padding: 0.3em;
+    }
+</style>
+
+<!--End PopUp Style-->
+
+<h2>MessagesRead</h2>
+
+
+@for (int i = 0; i < Model.Count(); i++)
+{
+    var mod = Model.ElementAt(i);
+
+    
+    
+    
+    <div class="col-lg-10">
+        <div class="back"><a href="~/Profile/Messages/@User.Identity.Name"><< Обратно</a> | <button id="create-user">Отговори</button>  </div>
+        <div class="row">
+            <div class="col-lg-8 mtitle">@mod.Title<br /></div>
+            <div class="col-lg-8 mdeal"><a href="~/Home/Deatils/@mod.DealId">@mod.DealTitle</a></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8 mextra">
+                <div class="col-lg-2"><a href="~/Profile/UserDetails/@mod.MessageFrom">@mod.MessageFrom</a></div>
+                <div class="col-lg-2">@mod.DateSend</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8 mcontent" style="min-height:150px; border:dotted;">
+                @Html.Raw(mod.Content)
+            </div>
+        </div>
+
+
+
+    </div>
+
+
+
+    <div id="dialog-form" title="Изпратете лично съобщение">
+
+
+        <p class="validateTips">Всички полета са задължителни</p>
+
+
+
+
+        <form id="Message" action="~/Home/Message" method="post" name="Message">
+            @Html.AntiForgeryToken()
+            <fieldset>
+
+
+                <label for="email">Отностно</label>
+                @Html.TextBox("MessageTitle", mod.Title)
+                <label for="text">Съобщение:</label>
+                @Html.TextArea("MessageContent", mod.Content)
+                @Html.Hidden("CurrentPage", mod.DealId)
+                @Html.Hidden("Author", mod.MessageTo)
+                @Html.Hidden("AuthorId", mod.MessageToId)
+                @Html.Hidden("Title", mod.DealTitle)
+                <!-- Allow form submission with keyboard without duplicating the dialog button -->
+                <input type="submit" name="Message" tabindex="-1" style="position:absolute; top:-1000px">
+
+            </fieldset>
+        </form>
+
+    </div>
+}
+
+
+

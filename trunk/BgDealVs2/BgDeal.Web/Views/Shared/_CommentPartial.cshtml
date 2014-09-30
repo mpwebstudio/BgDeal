@@ -1,0 +1,33 @@
+﻿@model BgDeal.Web.Models.CommentViewModel
+
+<div class="row commentsDiv">
+
+
+    <table style=" border-left: thin solid #ccc; border-right: thin solid #ccc; border-bottom: thin solid #ccc">
+        <tbody>
+            <tr>
+                <th class="col-lg-1" style="background: #d2e0e8; padding: 5px; border-right: 1px solid #e4ebf3; ">
+                    От:<a href="/Home/UserDetails/@Model.PotrebitelID"> <em>@Model.AuthorUsername</em></a>
+                </th>
+                <th class="col-lg-5" style="background: #d2e0e8; padding: 5px;">
+                    <img src="~/Content/img/watch.png" /> @Model.DateAdded
+                </th>
+            </tr>
+            <tr>
+
+                <th class="col-lg-1" style="border-right: 1px solid #e4ebf3;">
+                    <div style="min-height:60px; margin-top:5px;">
+                        neshto si
+                    </div>
+                </th>
+                <th class="col-lg-5">
+                    <div style="min-height: 60px; margin-top: 5px; ">
+                        @Html.Raw(Model.Content)
+                    </div>
+                </th>
+
+            </tr>
+        </tbody>
+    </table>
+
+</div>
