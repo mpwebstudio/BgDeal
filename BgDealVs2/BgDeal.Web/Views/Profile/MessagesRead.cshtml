@@ -1,0 +1,155 @@
+﻿@model IEnumerable<BgDeal.Web.Models.MessageViewModel>
+
+@{
+    ViewBag.Title = "MessagesRead";
+}
+
+<!-- PopUp-->
+<style>
+    label, input {
+        display: block;
+    }
+
+        input.text {
+            margin-bottom: 12px;
+            width: 95%;
+            padding: .4em;
+        }
+
+    fieldset {
+        padding: 0;
+        border: 0;
+        margin-top: 25px;
+    }
+
+
+
+    div#users-contain {
+        width: 450px;
+        margin: 20px 0;
+    }
+
+        div#users-contain table {
+            margin: 1em 0;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+            div#users-contain table td, div#users-contain table th {
+                border: 1px solid #eee;
+                padding: .6em 10px;
+                text-align: left;
+            }
+
+    .ui-dialog .ui-state-error {
+        padding: .3em;
+    }
+
+    .validateTips {
+        border: 1px solid transparent;
+        padding: 0.3em;
+    }
+</style>
+
+<!--End PopUp Style-->
+
+
+
+
+@for (int i = 0; i < Model.Count(); i++)
+{
+    var mod = Model.ElementAt(i);
+
+    <div class="col-lg-10" style="border:thin solid #808080; border-radius:3px; background-color:#ffffff; margin-top:20px;">
+        <div style="margin-left:-15px; background-color:#cecece; width:101.6%; height:60px;">
+            <div class="col-lg-11" style="padding:10px; float:left; position:relative">
+            <a href="~/Profile/Messages/@User.Identity.Name" class="btn btn-default">Обратно</a> <button id="message" class="btn btn-default" style="background-color:#ffffff">Отговори</button>
+            <div style="float:right">
+                @using (Ajax.BeginForm("DelleteMessage", new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "messages" }))
+                {
+                    <input type="hidden" name="Id" value="@mod.Id" />
+                    <input type="submit" id="delete" class="btn btn-default" value="Изтрий" style="width:100px; margin-left:-10px;" />
+                }
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-10">
+            <div class="row" style="margin-top:5px;">
+                <div class="col-lg-8 mtitle"><div class="col-lg-5"> <h3>@mod.Title</h3></div><br /></div>
+                <div class="col-lg-8 mtitle"><div class="col-lg-5"><b>@mod.DealTitle</b></div><br /></div>
+                <div class="col-lg-8 mtitle"><div class="col-lg-4"><em>@mod.DateSend</em></div><br /></div>
+                <div class="col-lg-8 mtitle"><div class="col-lg-3">От:<a href="/Profile/UserDetails/@mod.MessageFrom">@mod.MessageFrom</a></div><br /></div>
+
+            </div>
+            <div style="margin-top:20px; height:20px;"><hr style="width:100%; margin-left:20px; margin-top:20px;" /></div>
+            <div class="row">
+                <div class="col-lg-8 mcontent" style="min-height:150px;">
+                    @Html.Raw(mod.Content)
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!--PopUp-->
+    
+<div id="dialog-form" title="Изпратете лично съобщение">
+    
+    
+    <p class="validateTips">Всички полета са задължителни</p>
+    
+    
+    
+ 
+    <form id="Message" action="~/Home/Message" method="post" name="Message">
+    @Html.AntiForgeryToken()
+            <fieldset>
+
+            
+            <label for="email">Отностно</label>
+            @Html.TextBox("MessageTitle","Re:"+mod.Title)
+            <label for="text">Съобщение:</label>
+            @Html.TextArea("MessageContent",mod.Content)
+            @Html.Hidden("CurrentPage", mod.DealId)
+            @Html.Hidden("Author", mod.MessageFrom)
+            
+            @Html.Hidden("Title", mod.DealTitle)
+            <!-- Allow form submission with keyboard without duplicating the dialog button -->
+            <input type="submit" name="Message" tabindex="-1" style="position:absolute; top:-1000px">
+
+        </fieldset>
+    </form>
+
+</div>
+
+}
+
+<script type="text/javascript" src="/Scripts/tinyMCE/tinymce.min.js"></script>
+<script type="text/javascript">
+    tinymce.init({
+        selector: "textarea",
+        menubar: false,
+        statusbar: false,
+        plugins: [
+            "advlist autolink lists link image charmap print preview hr anchor pagebreak",
+            "searchreplace wordcount visualblocks visualchars code fullscreen",
+            "insertdatetime media nonbreaking save table contextmenu directionality",
+            "emoticons template paste textcolor colorpicker textpattern"
+        ],
+        toolbar1: "insertfile undo redo | bold italic | bullist numlist outdent indent | link image emoticons",
+
+        image_advtab: true,
+        templates: [
+            { title: 'Test template 1', content: 'Test 1' },
+
+        ]
+    });
+</script>
+
+
+
+
+
+
+

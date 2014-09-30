@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="DefaultConnection-Web.config Connection String" description="DefaultConnection Connection String used in web.config by the application to access the database." defaultValue="Data Source=(LocalDb)\v11.0;Initial Catalog=BgDealVs2;Integrated Security=True" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="E:\\ProjectsMvc\\BgDealVs2\\BgDeal\.Web\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DefaultConnection']/@connectionString" />
+  </parameter>
+  <parameter name="BgDeal.Data.ApplicationDbContext-Web.config Connection String" description="BgDeal.Data.ApplicationDbContext Connection String used in web.config by the application to access the database." defaultValue="BgDeal.Data.ApplicationDbContext_ConnectionString" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="E:\\ProjectsMvc\\BgDealVs2\\BgDeal\.Web\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='BgDeal.Data.ApplicationDbContext']/@connectionString" />
+  </parameter>
+  <parameter name="BgDeal.Web.Models.ApplicationDbContext-Web.config Connection String" description="BgDeal.Web.Models.ApplicationDbContext Connection String used in web.config by the application to access the database." defaultValue="BgDeal.Web.Models.ApplicationDbContext_ConnectionString" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="E:\\ProjectsMvc\\BgDealVs2\\BgDeal\.Web\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='BgDeal.Web.Models.ApplicationDbContext']/@connectionString" />
+  </parameter>
+</parameters>

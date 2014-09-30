@@ -1,0 +1,14 @@
+E:\ProjectsMvc\BgDealVs2\BgDeal.Models\bin\Release\BgDeal.Models.dll.config
+E:\ProjectsMvc\BgDealVs2\BgDeal.Models\bin\Release\BgDeal.Models.dll
+E:\ProjectsMvc\BgDealVs2\BgDeal.Models\bin\Release\BgDeal.Models.pdb
+E:\ProjectsMvc\BgDealVs2\BgDeal.Models\bin\Release\EntityFramework.dll
+E:\ProjectsMvc\BgDealVs2\BgDeal.Models\bin\Release\EntityFramework.SqlServer.dll
+E:\ProjectsMvc\BgDealVs2\BgDeal.Models\bin\Release\Microsoft.AspNet.Identity.Core.dll
+E:\ProjectsMvc\BgDealVs2\BgDeal.Models\bin\Release\Microsoft.AspNet.Identity.EntityFramework.dll
+E:\ProjectsMvc\BgDealVs2\BgDeal.Models\bin\Release\EntityFramework.xml
+E:\ProjectsMvc\BgDealVs2\BgDeal.Models\bin\Release\EntityFramework.SqlServer.xml
+E:\ProjectsMvc\BgDealVs2\BgDeal.Models\bin\Release\Microsoft.AspNet.Identity.Core.xml
+E:\ProjectsMvc\BgDealVs2\BgDeal.Models\bin\Release\Microsoft.AspNet.Identity.EntityFramework.xml
+E:\ProjectsMvc\BgDealVs2\BgDeal.Models\obj\Release\BgDeal.Models.csprojResolveAssemblyReference.cache
+E:\ProjectsMvc\BgDealVs2\BgDeal.Models\obj\Release\BgDeal.Models.dll
+E:\ProjectsMvc\BgDealVs2\BgDeal.Models\obj\Release\BgDeal.Models.pdb

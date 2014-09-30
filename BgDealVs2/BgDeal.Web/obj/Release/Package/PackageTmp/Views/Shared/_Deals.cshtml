@@ -1,0 +1,121 @@
+﻿
+<div class="clearfix"></div>
+<div class="left-side" style="width:75%; float:left; background-color:#fff; ">
+
+
+    @for (int i = 0; i < Model.Count(); i++)
+    {
+
+        var listDeal = Model.ElementAt(i);
+        <div class="advert">
+            <!-- Задаваме релативен път за да няма объркване когато се извика сайта с home/index-->
+            <a href="~/Home/Details/@listDeal.Id">
+
+                @listDeal.Title <br />
+                <img src="~/Content/productImages/@listDeal.Id/thumb_@listDeal.ImageUrl" /> <br />
+                @listDeal.Price<br />
+
+
+            </a>
+        </div>
+    }
+
+
+</div>
+<div class="right-side" style="width:25%; min-height:250px; background-color:#ffd800; float:right;"></div>
+
+<div class="clearfix"></div>
+<div class="row"></div>
+<div class="pagination_footer">
+    <div align="center">
+        <div class="col-lg-3"></div>
+        <div class="col-lg-1">
+            @if (Convert.ToInt32(Url.RequestContext.RouteData.Values["id"]) <= 1)
+            {
+                <span><img src="/Content/images/left-none.png" style="margin-top:6px;" /></span>
+            }
+            else
+            {
+
+                <a href="/Home/Index/@(Convert.ToInt32(Url.RequestContext.RouteData.Values["id"])-1)"> <span class="left_btn"> </span></a>
+
+            }
+        </div>
+
+
+        <div class="col-lg-4">
+
+            @if (Convert.ToInt32(Url.RequestContext.RouteData.Values["id"]) <= 1)
+            {
+                <a class="current_pagination_btn" href="@Url.Action("Index", new { id = 1})">1</a>
+            }
+            else
+            {
+                <a class="pagination_btn" href="@Url.Action("Index", new { id = 1})">1</a>
+            }
+
+
+
+            @if (Convert.ToInt32(Url.RequestContext.RouteData.Values["id"]) <= 3)
+            {
+                if (Convert.ToInt32(Url.RequestContext.RouteData.Values["id"]) < 2)
+                {
+                    <a class="pagination_btn" href="@Url.Action("Index", new {id = 2})">2</a>
+
+
+                    <a class="pagination_btn" href="@Url.Action("Index", new {id = 3})">3</a>
+                }
+                if (Convert.ToInt32(Url.RequestContext.RouteData.Values["id"]) == 2)
+                {
+
+                    <a class="current_pagination_btn" href="@Url.Action("Index", new {id = 2})">2</a>
+
+
+                    <a class="pagination_btn" href="@Url.Action("Index", new {id = 3})">3</a>
+
+                }
+                if (Convert.ToInt32(Url.RequestContext.RouteData.Values["id"]) == 3)
+                {
+
+                    <a class="pagination_btn" href="@Url.Action("Index", new {id = 2})">2</a>
+
+                    <a class="current_pagination_btn" href="@Url.Action("Index", new {id = 3})">3</a>
+
+                }
+
+
+                <a class="pagination_btn" href="@Url.Action("Index", new {id = 4})">4</a>
+
+                <a class="pagination_btn" href="@Url.Action("Index", new {id = 5})">5</a>
+
+                <span style="width: 20px; margin-top: 17px; float: left;">....</span>
+                <a class="pagination_btn" href="@Url.Action("Index",new {id = ViewBag.Pages})">@ViewBag.Pages.ToString()</a>
+            }
+            else
+            {
+                <span style="width: 20px; margin-top: 17px; float: left;">....</span>
+                <a class="pagination_btn" href="/Home/Index/@(Convert.ToInt32(Url.RequestContext.RouteData.Values["id"])-1)">@(Convert.ToInt32(Url.RequestContext.RouteData.Values["id"]) - 1)</a>
+                <a class="current_pagination_btn" href="/Home/Index/@(Convert.ToInt32(Url.RequestContext.RouteData.Values["id"]))">@(Convert.ToInt32(Url.RequestContext.RouteData.Values["id"]))</a>
+                <a class="pagination_btn" href="/Home/Index/@(Convert.ToInt32(Url.RequestContext.RouteData.Values["id"])+1)">@(Convert.ToInt32(Url.RequestContext.RouteData.Values["id"]) + 1)</a>
+                <span style="width:20px;margin-top:17px; float:left;">....</span>
+                <a class="pagination_btn" href="@Url.Action("Index",new {id = ViewBag.Pages})">@ViewBag.Pages.ToString()</a>
+            }
+
+        </div>
+
+
+        <div class="col-lg-1">
+            @if (Convert.ToInt32(Url.RequestContext.RouteData.Values["id"]) < 2)
+            {
+                <a href="@Url.Action("Index",new {id = 2})"><span class="right_btn"></span></a>
+
+            }
+            else
+            {
+                <a href="/Home/Index/@(Convert.ToInt32(Url.RequestContext.RouteData.Values["id"])+1)"><span class="right_btn"></span></a>
+            }
+        </div>
+    </div>
+
+</div>
+

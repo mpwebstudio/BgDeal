@@ -1,0 +1,45 @@
+﻿@model IEnumerable<BgDeal.Web.Models.DealViewModel>
+
+@{
+    ViewBag.Title = "AllDeals";
+}
+
+<h2>Всички твои сделки @User.Identity.Name</h2>
+
+<div class="clearfix"></div>
+<div class="left-side" style="width:75%; float:left; background-color:#fff; ">
+
+
+    @for (int i = 0; i < Model.Count(); i++)
+    {
+
+        var listDeal = Model.ElementAt(i);
+        <div class="advert">
+            <!-- Задаваме релативен път за да няма объркване когато се извика сайта с home/index-->
+            <a href="~/Home/Details/@listDeal.Id">
+                @if (listDeal.Title.Length > 20)
+                {
+                    @listDeal.Title.ToString().Substring(0, 20) <br />
+                }
+                else
+                {
+                    @listDeal.Title <br />
+                }
+                @if (listDeal.Active == true)
+                {
+                    <img src="~/Content/productImages/@listDeal.Id/thumb_@listDeal.ImageUrl" /> <br />
+                }
+                else
+                {
+                    <img src="~/Content/productImages/@listDeal.Id/thumb_@listDeal.ImageUrl" style="position: relative; top: 0; left: 0; opacity: 0.5;" />
+                    <img src="~/Content/images/expired.png" style="position:absolute;top:30px;left:0px;" />
+                    <br />
+                }
+                @listDeal.Price<br />
+            </a>
+            <a href="~/CreateDeal/EditDeal/@listDeal.Id">Редактирай</a>
+        </div>
+    }
+
+
+</div>

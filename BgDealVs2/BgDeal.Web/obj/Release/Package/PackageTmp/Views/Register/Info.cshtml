@@ -1,0 +1,72 @@
+﻿@model BgDeal.Models.DealUser
+@{
+    ViewBag.Title = "Потребителски профил";
+}
+
+<h2>Потребителски профил</h2>
+
+
+@using (Html.BeginForm("InfoSave", "Register", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    
+
+    <div class="form-horizontal">
+        
+        
+        @Html.ValidationSummary(true)
+
+
+
+        @Html.HiddenFor(model =>model.Id)
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.FirstName, "Име", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.FirstName)
+                @Html.ValidationMessageFor(model => model.FirstName)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Surname, "Фамилия", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Surname)
+                @Html.ValidationMessageFor(model => model.Surname)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Mobile, "Телефон за връзка", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+
+                @Html.TextBoxFor(model => model.Mobile)
+                @Html.ValidationMessageFor(model => model.Mobile)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Location, "Местоположение", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Location)
+                @Html.ValidationMessageFor(model => model.Location)
+            </div>
+        </div>
+        
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.Image, "Профил снимка", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div><input type='file' title="Изберете профил снимка" name="Image" id="аа" onchange="pressed()"></div>
+                @Html.ValidationMessageFor(model => model.Image)
+            </div>
+        </div>
+        
+        <br />
+
+        <br />
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Запази" name="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+

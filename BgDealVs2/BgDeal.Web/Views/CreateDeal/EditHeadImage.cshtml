@@ -1,0 +1,67 @@
+﻿@model BgDeal.Models.Deal
+
+<script type="text/javascript">
+    $(function () {
+        $("#uploadFile").on("change", function () {
+            var files = !!this.files ? this.files : [];
+            if (!files.length || !window.FileReader) return; // no file selected, or no FileReader support
+
+            if (/^image/.test(files[0].type)) { // only image file
+                var reader = new FileReader(); // instance of the FileReader
+                reader.readAsDataURL(files[0]); // read the local file
+
+                reader.onloadend = function () { // set image data as background of div
+                    $("#imagePreview").css("background-image", "url(" + this.result + ")");
+                }
+            }
+        });
+    });
+</script>
+
+<style>
+    #imagePreview {
+        width: 180px;
+        height: 180px;
+        background-position: center center;
+        background-size: cover;
+        -webkit-box-shadow: 0 0 1px 1px rgba(0, 0, 0, .3);
+        display: inline-block;
+    }
+</style>
+
+
+@{
+    ViewBag.Title = "EditHeadImage";
+}
+
+<h2>EditHeadImage</h2>
+
+
+
+
+
+<div id="imagePreview"></div>
+
+@using (Html.BeginForm("EditHeadImage", "CreateDeal", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{ 
+    @Html.AntiForgeryToken()
+    
+    @Html.HiddenFor(model => model.Active)
+    @Html.HiddenFor(model => model.Author)
+    @Html.HiddenFor(model => model.AuthorId)
+    @Html.HiddenFor(model => model.Content)
+    @Html.HiddenFor(model => model.DateAdded)
+    @Html.HiddenFor(model => model.HeadImage)
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.Location)
+    @Html.HiddenFor(model => model.Phone)
+    @Html.HiddenFor(model => model.PotrebitelskiNomer)
+    @Html.HiddenFor(model => model.Price)
+    @Html.HiddenFor(model => model.Title)
+    @Html.HiddenFor(model => model.Topic)
+    
+
+    <input id="uploadFile" type="file" name="HeadImage" class="img" />
+    <input type="hidden" name="picture" value="id" />
+    <input type="submit" value="Обнови" />
+}

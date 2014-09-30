@@ -1,0 +1,109 @@
+﻿@model IEnumerable<BgDeal.Web.Models.DealViewModel>
+@{
+    ViewBag.Title = "Home Page";
+}
+<div class="clearfix"></div>
+<div class="left-side" style="width:75%; float:left; background-color:#fff; ">
+
+
+    @for (int i = 0; i < Model.Count(); i++)
+    {
+
+        var listDeal = Model.ElementAt(i);
+        <div class="advert">
+            <!-- Задаваме релативен път за да няма объркване когато се извика сайта с home/index-->
+            <a href="~/Home/Details/@listDeal.Id">
+
+                @listDeal.Title <br />
+                <img src="~/Content/productImages/@listDeal.Id/thumb_@listDeal.ImageUrl" /> <br />
+                @listDeal.Price<br />
+
+
+            </a>
+        </div>
+    }
+
+
+</div>
+<div class="right-side" style="width:25%; min-height:250px; background-color:#ffd800; float:right;"></div>
+
+@if(ViewBag.Pages <=1)
+{
+    
+}
+else
+{ 
+
+<div class="clearfix"></div>
+<div class="row"></div>
+<div class="pagination_footer" style="position:fixed;">
+    <div class="col-lg-5"></div>
+    <div align="center">
+        @*@if (ViewBag.Pages == 1)
+        {
+            <a class="current_pagination_btn" href="/Home/All/@Url.RequestContext.RouteData.Values["id"]/1">1</a>
+        }*@
+
+                @if (ViewBag.Pages == 2)
+        {
+            <a class="@if(Convert.ToInt32(Url.RequestContext.RouteData.Values["id2"])<=1){@:current_pagination_btn
+                                                                } else { @: pagination_btn
+                                                                 }" href='/Home/All/@Url.RequestContext.RouteData.Values["id"]/1'>1</a>
+        <a class="@if (Convert.ToInt32(Url.RequestContext.RouteData.Values["id2"])==2){@:current_pagination_btn
+                                                                                    } else { @: pagination_btn
+                                                                                    }" href='/Home/All/@Url.RequestContext.RouteData.Values["id"]/2'>2</a>
+        }
+
+                @if (ViewBag.Pages == 3)
+        {
+            <a class="@if(Convert.ToInt32(Url.RequestContext.RouteData.Values["id2"])<=1){@:current_pagination_btn
+                                                                } else { @: pagination_btn
+                                                                           }"  href='/Home/All/@Url.RequestContext.RouteData.Values["id"]'>1</a>
+        <a class="@if (Convert.ToInt32(Url.RequestContext.RouteData.Values["id2"])==2){@:current_pagination_btn
+                                                                                         } else { @: pagination_btn
+                                                                                                 }"  href='/Home/All/@Url.RequestContext.RouteData.Values["id"]'>2</a>
+    <a class="@if (Convert.ToInt32(Url.RequestContext.RouteData.Values["id2"])==3){@:current_pagination_btn
+                                                                                  } else { @: pagination_btn
+                                                                                  } " href='/Home/All/@Url.RequestContext.RouteData.Values["id"]/3'>3</a>
+        }
+
+        @if (ViewBag.Pages >= 4)
+        {
+            if (Convert.ToInt32(Url.RequestContext.RouteData.Values["id2"]) <= 1)
+            {
+
+            }
+            else
+            {
+                <a class="pagination_btn" href="/Home/All/@Url.RequestContext.RouteData.Values["id"]/@(Convert.ToInt32(Url.RequestContext.RouteData.Values["id2"])-1)">@(Convert.ToInt32(Url.RequestContext.RouteData.Values["id2"]) - 1)</a>
+            }
+            if (Convert.ToInt32(Url.RequestContext.RouteData.Values["id2"]) <= 1)
+            {
+                <a class="current_pagination_btn" href="/Home/All/@Url.RequestContext.RouteData.Values["id"]/1)">1</a>
+            }
+            else
+            {
+                <a class="current_pagination_btn" href="/Home/All/@Url.RequestContext.RouteData.Values["id"]/@(Convert.ToInt32(Url.RequestContext.RouteData.Values["id2"]))">@(Convert.ToInt32(Url.RequestContext.RouteData.Values["id2"]))</a>
+            }
+            if (Convert.ToInt32(Url.RequestContext.RouteData.Values["id2"]) == ViewBag.Pages)
+            {
+
+            }
+            else
+            {
+                if (Convert.ToInt32(Url.RequestContext.RouteData.Values["id2"]) <= 1)
+                {
+                    <a class="pagination_btn" href="/Home/All/@Url.RequestContext.RouteData.Values["id"]/2">2</a>
+                }
+                else
+                {
+                    <a class="pagination_btn" href="/Home/All/@Url.RequestContext.RouteData.Values["id"]/@(Convert.ToInt32(Url.RequestContext.RouteData.Values["id2"])+1)">@(Convert.ToInt32(Url.RequestContext.RouteData.Values["id2"]) + 1)</a>
+                }
+            }
+
+        }
+
+
+    </div>
+</div>
+    }

@@ -1,0 +1,105 @@
+﻿@model  IEnumerable<BgDeal.Web.Models.PublicProfile>
+@{
+    ViewBag.Title = "Публичен профил";
+}
+
+<h2>Публичен профил</h2> 
+
+
+
+
+
+
+<div class="row">
+    
+
+      @for (int i = 0; i < Model.Count(); i++)
+      {
+          var list = Model.ElementAt(i);
+            
+          
+            <div class="col-lg-8 userInfoDetails">        
+       
+                <div id="pictureDetails" style="width:150px; height:150px; padding-top:15px;float:left;">
+                    <img src="~/Content/UserImages/@list.Id/thumb_@list.HeadPicture" style="margin-top:15px;" />
+                </div>
+
+                <div class="infoDetails" style="position:relative;float:left; margin-top:25px;">
+
+
+                    Име: <strong>@list.FirstName @list.SurName </strong><br />
+                    Местоположение: <strong>@list.Location</strong> <br />
+                    Регистриран:<strong> @Convert.ToDateTime(list.DateRegister).ToLongDateString() </strong><br />
+                    Брой обяви: <strong>@ViewBag.DealsNumber</strong><br />
+
+                    @if (object.Equals(User.Identity.Name, list.Author))
+                    {
+                        <a href="~/Profile/Messages/@User.Identity.Name">
+                            Съобщения: @ViewBag.Message @if (ViewBag.Message == 1)
+                            {
+                                <span>Ново</span>
+                            }
+                            @if (ViewBag.Message > 1)
+                            {
+                                <span>Нови</span>
+                            }
+                        </a><br />
+                        <a href="~/Profile/EditProfile/@list.Id">Редактирай профила</a><br />
+                        <a href="~/Account/Manage">Смяна на парола</a>
+
+                    }
+                    else
+                    {
+                        if (User.Identity.IsAuthenticated)
+                        { <a href="#">Изпрати съобщение</a>}
+                    }
+
+                </div>
+            
+                
+
+            </div>
+          if (object.Equals(User.Identity.Name, list.Author) && Enumerable.Count(ViewBag.AllDeals) > 0)
+          { 
+          <span  class="col-lg-8" style="text-align:right;margin-top:30px;"><a href="#">Редактирай обявите</a></span>
+          }
+          else
+          {
+              <span  class="col-lg-8" style="text-align:right;margin-top:30px;"></span>
+          }
+        <div class="col-lg-8 userInfoDetails" >
+        
+        @foreach (var listt in ViewBag.AllDeals)
+        {
+            
+        
+            if (listt.Active)
+            {
+                
+                <div style="padding:10px; margin-left:20px; width:230px; float:left; margin-top:20px;">
+                    <a href="~/Home/Details/@listt.Id">
+                       @listt.Title
+                        <img src="~/Content/productImages/@listt.Id/thumb_@listt.ImageUrl" /> <br />
+                        @listt.Price
+                     </a>
+                </div>
+            }
+            else
+            {
+                <div style="padding:10px; margin-left:20px; width:230px; float:left; margin-top:20px; position:relative;left:0;top:0;">
+                    <a href="~/Home/Details/@listt.Id">
+                       @listt.Title
+                        <img src="~/Content/productImages/@listt.Id/thumb_@listt.ImageUrl" style="position: relative; top: 0; left: 0; opacity: 0.5;" />
+                        <img src="~/Content/images/expired.png" style="position:absolute;top:30px;left:15px;" />
+                         <br />
+                        @listt.Price
+                     </a>
+                </div>
+            }
+        }
+
+        </div>
+      }
+    
+</div>
+
